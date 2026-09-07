@@ -1,0 +1,196 @@
+################################
+#           [TatOS]            #
+#        My Notes file.        #
+#     Hobby OS developed by:   #
+#        @PotatoIsCool         #
+################################
+
+7/22/2026: Starting out.
+Notes for TatOS. This will probably be my real project now. 
+
+I want this OS to be super minimal
+
+Features:
+1. Console
+2. Keyboard drivers
+3. Stat command (Shows PC stats)
+4. A code editing command
+5. a file system
+
+I want this OS to be able to use the internet just for discord. I do not know how im going to view discord.
+Because I would need to have a desktop or some how to see it in cmd. I dont really trust anything with the internet tho.
+
+# 7/26/2026: Huge progress!
+Ok so I am using Grub2 multiboot. I was able to copy basically everything from my old VGA 32-bit OS. 
+But the difference is that this is now VESA mode. I GOT PIXELS! So I am now able to draw. I was also
+able to convert text into bytes and draw them. They look a little funky tho. Im unsure if it is from 
+the bytes that is causing it or my drawing function. 
+But I also have made Keyboard Drivers, Mouse drivers & "Display Drivers". Inside the display drivers
+I have a bunch of drawing functions. I also figured out a lot of OS do not have a VGA mode for consoles
+instead they use VESA Mode to kinda "emulate" the console feeling. I am having problems with the Mouse
+erasing stuff. The way the mouse works is it draws and erases old stuff. Also due to my Multiboot section
+I was able to boot into 1920x1080 res. 
+
+but now I am kinda stuck on what to do. I am unsure of where to go or do. I am overwhelmed by all the options
+I have. I need to add double buffering to my mouse so it stops erasing stuff. But what do I do after that? 
+File storage? Network drivers? OS Installer? I am all unsure. Currently my OS is running all in RAM. So
+right when you turn off or unplug the USB everything is wiped. I kinda like that. It feels reassuring
+that all my data will be wiped within a few seconds without any way of recovery. My code has been getting really
+messy too. I do not think there is a way to fix that. I might have a friend try to look at it and make it less
+messy.
+
+So I will now make a checklist of what I want to do. I mean I never thought I would have gotten VESA Mode (Desktop)
+or even Mouse drivers if im going to be honest. But I feel like I still can make a lot more till im fully
+out of skill. Later in the future I want to make 3D Graphics rendering. That would be amazing. Ive also came to the
+realization yesterday that I wont be able to download or install anything. Everything I do or have I will have to make
+it. For example my browser. I cant just install firefox, chrome, or anything like that. My brain hasnt fully gotten the
+concept of that. I know browser use linux/windows API syscalls so that is why it wouldnt work. But what is my syscalls?
+Anyways I would need to make my own. I would need to make my own games too. I wonder what games lol. I would probably 
+try to make a 2D game first. Speaking of that I need to make it so I can add images too some how. Would I want my own
+image format too? Im unsure. Ive been working on this ALL day for the past 3 days. I should really do something else.
+But programming is so addicting.
+
+Checklist:
+- Double buffering
+- A console mode (Maybe enabled/disabled with keybind)
+- Proper window system. Like tabs and apps.
+- File system (Maybe like a RamFS (VFS) )
+- Network drivers (later)
+- Hardware timers/Clock Drivers
+- Physical & Virtual memory Management
+- Interrupt Descriptor Table
+- Sound Drivers
+- Bluetooth drivers (late future)
+- Stat reader. Like Hardware stat reader, battery life, etc
+
+I want to make like a catalog thingy where it will tell you super fast where functions are at and what files have what functions.
+I also want this OS to be open sourced and is able to be edited inside the OS. I am unsure if that is possible to do with a 
+RAM file system. All tho I need to do more research. I am still fairly new to this considering this is my third OS ive made.
+But this OS is different from the others. This one I think will be my REAL project.
+
+Oki I have added double buffering now! 
+So what I had to do was originally I was writing all the UI directly to VRAM (GPU's Memory/Video Memory) 
+so everytime my moused moved it would write the background color. But now I am writing all my drawing 
+functions to my RAM. But when I move my mouse a small square re-writes everything that was originally 
+there before my mouse.
+
+Ok so Ive added a console and made it so theres a "Start" command and it will swap it to the GUI mode.
+
+
+
+# 8/1/26: File system working!
+Ok so ever since I last wrote these notes I have worked on a file system that works. Its not fully done
+but it is running through RAM/Memory. I researched into network drivers but that seems like it is
+IMPOSSIBLE for me to currently write them considering you need a min of 20k lines of code. Now
+what I am planning onto making is my own file extensions. I will probably keep
+.txts as they are. But I want to make my own image format and everything. But I do feel like
+.pngs, .jpegs, .whatever are really universal and a browser will never work. But if I never have
+internet I wont have to worry about making a browser. I do not want to import linux syscalls or 
+windows API calls at all in this whole OS. 
+
+So maybe what I will do is make it so it can handle all image file types but then have one of my own
+and so apps can generate that type of stuff inside the OS. But now that im starting to hit big tasks
+I need to make a new checklist of like every app I want to make. I try to re-update my checklist every
+time I make a new update. Ok lets write it.
+
+Current Checklist:
+- Hardware timers
+- stat reader
+- File formats
+- Images inside Console
+- apps
+- Window Manager (Be able to construct windows easy)
+- Have some sort of Taskbar or something
+- Sound Drivers
+
+# 8/3/26: Uptime is 5.54!
+YAY I got my own PIT driver working decent. I do think it is a little unsynced and im not sure how to properly
+fix that. But I finally have a uptime command working. But it is 5:54 AM and I should probably get to sleep 
+soon. Ive been stressing myself out way to much on this stuff and actually gave myself a migraine, that was
+no fun... But now im back on the grind hopefully. I need to work on a clock next. I have found this guy named
+"wichtounet" hes some smart dude with a PHD in machine learning. I might go ask him on some help with my PIT
+drivers. I have no clue how to tell if my uptime is actually precised on the second because my "PIT" driver is
+really just a TSC based timer. Its unreliable. I need to make my own IDT (Interrupt Descriptor Table) if I want
+to my make my own real PIT driver because I keep crashing when a interruption.
+
+# 8/4/26: Another day, Another learning experience
+Ok so I went to sleep and now its late at night again. I need to make my own IDT to be able to handle these Interruptions.
+Alrighty I got my own IDT working now. So I can handle Interruptions fine. Now my uptime command works properly too!
+I also added Shutdown/reboot commands to my OS so now I can properly shutdown stuff too. But I havent binded it to 
+my shutdown key. After doing a tiny bit of research I figured out theres something called a FADT (Fixed ACPI Descriptor Table)
+and inside that FADT there are two specific I/O ports. The ports are called PM1a_CNT_BLK (This is where the shutdown command will be)
+and PM1a_EVT_BLK (This is where the power button flag lives). Now I wont be making the shutdown functions binded to my Power button
+yet. But that is just to know what and where it is. Now I need to make a system clock and hardware stats reader thingy. I really
+do not want to deal with more ASM...
+Ok I went to sleep and woke up at 4PM lol. I thought of a name in my sleep that I could use for something. The name was "Ryna"
+
+# 8/4/26: IDT is working!
+Ok so I have gotten my IDT FULLY working now. Because it was only working on QEMU because I forgot to add delays.
+
+# 8/5/26:
+
+# 8/6/26: Memory not found.
+Ok long story short I made a "hwstat" command that pastes your CPU Vender, CPU Model, RAM and thats it. 
+Problem is that it cant find the memory at all. I need to fix that some day.
+
+# 8/7/26: Thinking.
+Ok so I had to take a break from doing OS stuff as I grinded it for 4/5 days straight. Now im trying to think of what I should add.
+I was thinking maybe images. so that way I could have a proper background too. I was looking back at my Notes and saw I was all
+about being minimal. I am still unsure of what I meant by minimal. I think I meant that I want this kernel to be very small.
+Another thing I thought about is how am I going to add apps? Will I hardcode it into my Kernel? Will I make a file format and have it in my file system?
+There are pros and cons to both of these questions. If I hardcoded it into my kernel then the code to my kernel would be super messy.
+If I made apps inside my file system I would have to probably make my own compiler too.
+Heres what apps I want on my own OS.
+
+Apps:
+- Games (Chess, checkers, simulators, etc)
+- Music maker/Beat maker. 
+- My own IDE
+- Settings
+- Terminal
+
+Oki lemme work on fixing the HwStats command so it can read my RAM.
+Update! I got it working. Its because my Multiboot info was defined as null and I completely forgot to define it.
+I want to make my OS feel completely different from everyone elses. I dislike the idea that everyone has to copy
+everyone else. Instead what I think I want to do is my my OS all physics based in the future. I havent seen 
+anyone do this before. But what if every window, text, etc all had physics? What if the file system was completely
+different? Like instead of folders and everything it was like graphs or like tags. What if I made like a timeline
+and from the start of the boot of the OS if you did something wrong you can just move the timeline back and 
+it would reload everything that you did. this would include windows opening and stuff. Think of it like a 
+video player. Like you move it backwards and it restores you functions. This would also replay API requests too
+and everything. There would definitely be some exploits that happened too. I was also thinking something like those
+infinite drawings. Like those drawings on apps where you can zoom in forever. What if I did that but with windows.
+I might be going a little crazy currently. But this might be such a good idea i am currently unsure. I need to catch
+some sleep and then come back and see if this is still such a good idea. I love the zooming in idea so much.
+
+I am not going to sleep yet. I still need to work on images. I also thought of this other idea where you can press 
+a keybind and it will open up the code of what your mouse is hovering over kinda in the kernel. Its kinda hard to 
+explain.
+
+# 8/31/26: A new start.
+Ok so I have taken a long break and worked on Fortnite Android modding with my friend Pillow. But now I should be back
+on the grind now that I am done. I also realized that I can't live with my messy code in my OS. So I will be remaking it
+as a "V2" type of thing. So I will see how much I get done today as ive only started at 3:30 AM lol.
+
+# 9/1/26: Update.
+So ive came to the realization that ive worked on this OS so much. It also feels like Hell working on this but I also feel
+like I am asigned to work on this forever. Its a odd feeling but I feel like I must keep doing this. But because I worked on
+"V1" so much I think I will just work on that code instead of remaking the whole thing. I do one day want to teach people 
+about OS development and help people with it. All though I do not think I will reach that goal. I mean if we look back at
+my first ever time I started this and my notes back then. I already completed my checklist I had back then besides the code
+editing one. I havent really got to that. Currently I will be revamping my code then I want to probably make a sound driver
+or a window manager. I also have thought about how I am going to add apps into my OS. Am I going to some how compile something
+into a file that goes into the my file system? Or should I hardcode it into the kernel making it unremovable from the storage.
+
+# 9/7/26: Cleaner Code, Cleaner Mind.
+Ok so I have cleaned up my code a lot. But I want to make it more cleaner then I will publish to Github. I want to publish
+to github before something happens to my code and I have to restart or something like my system getting corrupted.
+I am unsure what would happen but I feel like I would factory reset and lose everything. but I will eventually like to 
+some how get Discord and be able to Talk and stream on it. That would be like the coolest thing ever.
+
+It is now 7:54 AM. While cleaning my code and getting ready to publish to github I decided to change the image kitty to my own
+cat instead of a cat image off the internet. But then it stopped rendering images and was rendering all weirdly. I after doing
+a lot of debugging I finally figured out it was because of the functions in STB_image.c and thats why it was rendering weirdly.
+You would think people who coded over 30k lines of code just to make one thing would have proper functions right? You would be 
+very wrong. I had AI revamp the whole thing because I didn't want to touch any of that and dont need any of that. Ok now lets 
+publish!
