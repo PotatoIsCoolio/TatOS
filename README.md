@@ -65,3 +65,5 @@ I am making a checklist for this because its a lot of work.
 > The items in index on the checklist will be updated/removed at any time. Do not think they will be added.
 
 ---
+
+Also the Notes I have uploaded are just for documentation for this Project.
